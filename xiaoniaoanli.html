@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas {
+            border:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="500" height="500">该浏览器不支持该标签</canvas>
+    <script>
+        var cvs = document.querySelector("canvas");
+        var tool = cvs.getContext("2d");
+
+        var birdImg = new Image();
+        birdImg.src = "./images/birds.png";
+        birdImg.onload = function(){
+            var birdW = birdImg.width / 3;
+            var birdH = birdImg.height;
+            var canvasX = canvasY = 100;
+            var birdX = 0;
+            var num = 0;
+            function flay() {
+                tool.clearRect(0,0,cvs.width,cvs.height);
+                if (num > 2) {
+                    num = 0;
+                }
+                birdX = num * birdW;
+                tool.drawImage(birdImg,birdX,0,birdW,birdH,canvasX,canvasY,birdW,birdH);
+                num++;
+                window.requestAnimationFrame(flay);
+            }
+            flay();
+        }
+    </script>
+</body>
+</html>
