@@ -29,6 +29,8 @@
             var startT = new Date();
             var endT = new Date();
             var startV = 0;
+            var maxAngle = 45;
+            var maxV = 0.45;
             function flay() {
                 tool.clearRect(0,0,cvs.width,cvs.height);
                 // 小鸟掉落,y轴变化 位移 = 速度 * 时间 + g * 时间间隔 * 时间间隔 / 2 ; 速度 = 初速度 + g * 时间
@@ -44,8 +46,15 @@
                     num = 0;
                 }
                 birdX = num * birdW;
-                tool.drawImage(birdImg,birdX,0,birdW,birdH,canvasX,canvasY,birdW,birdH);
+
+                var angle = startV * maxAngle / maxV;
+                tool.save();
+                tool.translate(canvasX + birdW / 2,canvasY + birdH / 2);
+                tool.rotate(Math.PI / 180 * angle);
+                // 上面这两个样式是修饰下面小鸟的
+                tool.drawImage(birdImg,birdX,0,birdW,birdH,- birdW / 2,- birdH / 2,birdW,birdH);
                 num++;
+                tool.restore();
                 window.requestAnimationFrame(flay);
             }
             flay();
