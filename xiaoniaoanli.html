@@ -25,8 +25,21 @@
             var canvasX = canvasY = 100;
             var birdX = 0;
             var num = 0;
+            var g = 0.0003;
+            var startT = new Date();
+            var endT = new Date();
+            var startV = 0;
             function flay() {
                 tool.clearRect(0,0,cvs.width,cvs.height);
+                // 小鸟掉落,y轴变化 位移 = 速度 * 时间 + g * 时间间隔 * 时间间隔 / 2 ; 速度 = 初速度 + g * 时间
+                startT = new Date();
+                var intervalT = startT - endT;
+                endT = startT;
+
+                startV = startV + g * intervalT;
+                var offset = startV * intervalT + g * intervalT * intervalT / 2;
+                canvasY += offset;
+
                 if (num > 2) {
                     num = 0;
                 }
